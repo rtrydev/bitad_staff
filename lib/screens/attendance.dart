@@ -1,9 +1,7 @@
-
 import 'package:bitad_staff/screens/contacts.dart';
 import 'package:bitad_staff/widgets/qr_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_mobile_vision/qr_camera.dart';
 
 class Attendance extends StatelessWidget {
 
@@ -14,6 +12,33 @@ class Attendance extends StatelessWidget {
     final color = Theme.of(context).primaryColor;
     final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
     final qrCamera = QRViewAttendance();
+
+    final buttonSection = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton(
+            onPressed: (){},
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(Icons.text_fields, color: color,),
+                const Text('Wpisz kod')
+              ],
+            )
+        ),
+        TextButton(
+            onPressed: (){},
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(Icons.alternate_email, color: color),
+                const Text('E-Mail')
+              ],
+            )
+        )
+
+      ],
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +57,8 @@ class Attendance extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(child: qrCamera, flex: 7,),
+          Expanded(child: qrCamera, flex: 8,),
+          Expanded(child: buttonSection, flex: 1,)
         ],
       )
     );
