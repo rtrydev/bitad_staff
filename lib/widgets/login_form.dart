@@ -77,9 +77,7 @@ class _LoginFormState extends State<LoginForm> {
                           showDialog(
                             context: context,
                             builder: (context) {
-                              return AlertDialog(
-                                // Retrieve the text the that user has entered by using the
-                                // TextEditingController.
+                              return const AlertDialog(
                                 content: Text('Brak uprawnień do korzystania z tej aplikacji', textAlign: TextAlign.center,),
                               );
                             },
@@ -89,9 +87,7 @@ class _LoginFormState extends State<LoginForm> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return AlertDialog(
-                              // Retrieve the text the that user has entered by using the
-                              // TextEditingController.
+                            return const AlertDialog(
                               content: Text('Nieprawidłowy login lub hasło', textAlign: TextAlign.center,),
                             );
                           },
@@ -104,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
                       minimumSize: MaterialStateProperty.all(const Size(110, 35)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16.0)))),
-                  child: const Text('Zaloguj', textScaleFactor: 1.2,))
+                  child: const Text('Zaloguj się', textScaleFactor: 1.2,))
             ],
           ),
         ),

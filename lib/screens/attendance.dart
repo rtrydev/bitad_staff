@@ -1,121 +1,80 @@
-import 'dart:developer';
-import 'dart:io';
 
-import 'package:bitad_staff/api/retrofit_api.dart';
-import 'package:bitad_staff/api/retrofit_client.dart';
-import 'package:flutter/foundation.dart';
-
+import 'package:bitad_staff/widgets/qr_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class Attendance extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context){
+
+    final color = Theme.of(context).primaryColor;
+    final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
+
+    Widget buttonSection = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildButtonColumn(color, backgroundColor, Icons.text_fields, 'Wpisz kod', (){}),
+        _buildButtonColumn(color, backgroundColor, Icons.email, 'E-Mail', (){})
+      ],
+    );
+
+    Widget qrSection = Center(
+      child: QRViewAttendance(),
+    );
+
     return Scaffold(
-      body: Center(
-        child: QRViewExample(),
+      appBar: AppBar(
+        backgroundColor: backgroundColor,
+        centerTitle: true,
+        title: const Text(
+            'Sprawdź Obecność',
+          textScaleFactor: 1.2,
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
+        actions: [
+          IconButton(icon: const Icon(Icons.contacts, color: Colors.black,), onPressed: (){
+            Navigator.pushReplacementNamed(context, '/contacts');
+          },)
+        ],
+      ),
+      body: Column(
+        children: [
+          Expanded(child: qrSection, flex: 7,),
+          Expanded(child: buttonSection, flex: 1,)
+        ],
       )
     );
   }
-}
-
-class QRViewExample extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
-}
-
-class _QRViewExampleState extends State<QRViewExample> {
-  QRViewController? controller;
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    }
-    controller!.resumeCamera();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
 
 
+
+  TextButton _buildButtonColumn(Color color,Color backgroundColor, IconData icon, String label, void Function()? onPress) {
+    return TextButton(
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(backgroundColor),),
+      onPressed: onPress,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color),
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
-
-  Widget _buildQrView(BuildContext context) {
-    // For this reset we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-        MediaQuery.of(context).size.height < 400)
-        ? 250.0
-        : 600.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: scanArea),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
-    );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
-    controller.scannedDataStream.listen((scanData) {
-
-      this.controller?.pauseCamera();
-
-      final api = RetrofitApi();
-      api.getApiClient().then((value) {
-        final client = RestClient(value);
-        client.checkAttendance(scanData.code);
-      });
-
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            // Retrieve the text the that user has entered by using the
-            // TextEditingController.
-            content: Text(scanData.code),
-          );
-        },
-      ).then((exit) {
-        this.controller?.resumeCamera();
-      });
-
-    });
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('no Permission')),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
 }
+
+
+
