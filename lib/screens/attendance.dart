@@ -13,32 +13,7 @@ class Attendance extends StatelessWidget {
     final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
     final qrCamera = QRViewAttendance();
 
-    final buttonSection = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        TextButton(
-            onPressed: (){},
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Icon(Icons.text_fields, color: color,),
-                const Text('Wpisz kod')
-              ],
-            )
-        ),
-        TextButton(
-            onPressed: (){},
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Icon(Icons.alternate_email, color: color),
-                const Text('E-Mail')
-              ],
-            )
-        )
 
-      ],
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -55,12 +30,7 @@ class Attendance extends StatelessWidget {
           },)
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(child: qrCamera, flex: 8,),
-          Expanded(child: buttonSection, flex: 1,)
-        ],
-      )
+      body: qrCamera
     );
   }
 
