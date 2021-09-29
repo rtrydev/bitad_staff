@@ -134,7 +134,11 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
             )
         );
       },
-    );
+    ).then((value) {
+      setState((){
+        camState = true;
+      });
+    });
   }
 
   @override
