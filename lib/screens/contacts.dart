@@ -17,7 +17,7 @@ class Contacts extends StatelessWidget{
           style: TextStyle(fontWeight: FontWeight.w500),),
         leading:
           IconButton(icon: const Icon(Icons.arrow_back, color: Colors.black,), onPressed: (){
-            Navigator.pop(context, _createRoute());
+            Navigator.pushReplacement(context, _createRoute());
           },)
 
       ),

@@ -26,7 +26,7 @@ class Attendance extends StatelessWidget {
         ),
         actions: [
           IconButton(icon: const Icon(Icons.contacts, color: Colors.black,), onPressed: (){
-            Navigator.push(context, _createRoute());
+            Navigator.pushReplacement(context, _createRoute());
           },)
         ],
       ),
