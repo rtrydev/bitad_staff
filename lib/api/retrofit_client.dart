@@ -1,4 +1,5 @@
 import 'package:bitad_staff/models/attendance_result.dart';
+import 'package:bitad_staff/models/staff.dart';
 import 'package:bitad_staff/models/user.dart';
 import 'package:bitad_staff/models/user_login.dart';
 import 'package:retrofit/retrofit.dart';
@@ -15,5 +16,8 @@ abstract class RestClient {
 
   @PUT("/User/CheckAttendance")
   Future<AttendanceResult> checkAttendance(@Query('attendanceCode') String code);
+
+  @GET("/Staff/GetStaff/Admin")
+  Future<List<Staff>> getStaff();
 }
 
