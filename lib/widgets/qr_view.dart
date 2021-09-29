@@ -2,7 +2,6 @@ import 'package:bitad_staff/api/retrofit_api.dart';
 import 'package:bitad_staff/api/retrofit_client.dart';
 import 'dart:developer';
 import 'dart:io';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
