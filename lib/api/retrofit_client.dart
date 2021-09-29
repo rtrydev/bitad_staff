@@ -17,7 +17,7 @@ abstract class RestClient {
   @PUT("/User/CheckAttendance")
   Future<AttendanceResult> checkAttendance(@Query('attendanceCode') String code);
 
-  @GET("/Staff/GetStaff/Admin")
+  @GET("/Staff/GetStaffAdmin")
   Future<List<Staff>> getStaff();
 }
 

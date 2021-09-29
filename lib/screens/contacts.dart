@@ -1,5 +1,6 @@
 
 
+import 'package:bitad_staff/widgets/staff_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,9 +22,7 @@ class Contacts extends StatelessWidget{
           },)
 
       ),
-      body: Center(
-        child: Text('Contacts'),
-      ),
+      body: StaffView(),
     );
   }
 
