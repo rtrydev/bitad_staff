@@ -28,9 +28,44 @@ class _StaffViewState extends State<StaffView> {
       body: ListView.separated(
           itemBuilder: (BuildContext context, int index){
             return Container(
-              height: 50,
-              child: Center(child: Text('${staffList?[index].name}'),),
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage('${staffList?[index].picture}')
+                        )
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Text('${staffList?[index].name}', style: TextStyle(fontWeight: FontWeight.w700)),
+                        Text('${staffList?[index].description}', style: TextStyle(color: Colors.grey.shade600),),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const [
+                          Padding(
+                            child: Icon(Icons.phone, color: Colors.blue,) ,
+                            padding: EdgeInsets.only(right: 16),
+                          ),
+                          Icon(Icons.message, color: Colors.blue,)
+                        ]
+
+                    )
+
+                  ],
+                )
             );
+
           },
           separatorBuilder: (BuildContext context, int index) => const Divider(),
           itemCount: staffList?.length ?? 0),
