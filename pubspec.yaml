@@ -15,10 +15,10 @@ dependencies:
   provider: ^5.0.0  
   flutter_svg: ^0.22.0
   cupertino_icons: ^1.0.2
-  qr_code_scanner: ^0.5.2
   retrofit: any
   logger: any
   json_annotation: any
+  qr_mobile_vision: ^3.0.1
 
 dev_dependencies:
   flutter_test:

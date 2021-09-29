@@ -2,6 +2,7 @@ import 'package:bitad_staff/api/retrofit_api.dart';
 import 'package:bitad_staff/api/retrofit_client.dart';
 import 'package:bitad_staff/models/user.dart';
 import 'package:bitad_staff/models/user_login.dart';
+import 'package:bitad_staff/screens/attendance.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -72,7 +73,8 @@ class _LoginFormState extends State<LoginForm> {
                           .authenticateUser(UserLogin(username: username, password: password))
                           .then((response) {
                         if(response.role == Role.Admin){
-                          Navigator.pushReplacementNamed(context, '/attendance');
+                          Navigator.pushReplacement(context, _createRoute());
+
                         } else {
                           showDialog(
                             context: context,
@@ -106,6 +108,27 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ),
     );
+
+  }
+
+  Route _createRoute(){
+    return PageRouteBuilder(
+
+      pageBuilder: (context, animation, secondaryAnimation) => Attendance(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 
 }
+

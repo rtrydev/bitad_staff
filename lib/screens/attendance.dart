@@ -1,7 +1,9 @@
 
+import 'package:bitad_staff/screens/contacts.dart';
 import 'package:bitad_staff/widgets/qr_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_mobile_vision/qr_camera.dart';
 
 class Attendance extends StatelessWidget {
 
@@ -11,18 +13,7 @@ class Attendance extends StatelessWidget {
 
     final color = Theme.of(context).primaryColor;
     final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
-
-    Widget buttonSection = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildButtonColumn(color, backgroundColor, Icons.text_fields, 'Wpisz kod', (){}),
-        _buildButtonColumn(color, backgroundColor, Icons.email, 'E-Mail', (){})
-      ],
-    );
-
-    Widget qrSection = Center(
-      child: QRViewAttendance(),
-    );
+    final qrCamera = QRViewAttendance();
 
     return Scaffold(
       appBar: AppBar(
@@ -35,45 +26,37 @@ class Attendance extends StatelessWidget {
         ),
         actions: [
           IconButton(icon: const Icon(Icons.contacts, color: Colors.black,), onPressed: (){
-            Navigator.pushReplacementNamed(context, '/contacts');
+            Navigator.push(context, _createRoute());
           },)
         ],
       ),
       body: Column(
         children: [
-          Expanded(child: qrSection, flex: 7,),
-          Expanded(child: buttonSection, flex: 1,)
+          Expanded(child: qrCamera, flex: 7,),
         ],
       )
     );
   }
 
+  Route _createRoute(){
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => Contacts(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
 
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-  TextButton _buildButtonColumn(Color color,Color backgroundColor, IconData icon, String label, void Function()? onPress) {
-    return TextButton(
-      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(backgroundColor),),
-      onPressed: onPress,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: color),
-          Container(
-            margin: const EdgeInsets.only(top: 8),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: color,
-              ),
-            ),
-          ),
-        ],
-      ),
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
+
+
 }
 
 
