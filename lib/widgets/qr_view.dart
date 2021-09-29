@@ -18,6 +18,50 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
   final codeTextController = TextEditingController();
   final emailTextController = TextEditingController();
 
+  void showMessage(int code, bool fromCamera){
+    String message = '';
+    switch(code){
+      case 0:
+        {
+          message = 'Ok';
+          break;
+        }
+      case 1:
+      {
+        message = 'Już aktywowany';
+        break;
+      }
+      case 2: {
+        message = 'Konto nieaktywne';
+        break;
+      }
+      case 404: {
+        message = 'Nie znaleziono odpowiadającego użytkownika';
+        break;
+      }
+      default: {
+        message = 'Błąd';
+        break;
+      }
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(message, textAlign: TextAlign.center, textScaleFactor: 1.2,),
+        );
+      },
+    ).then((value) {
+      setState(() {
+        camState = true;
+      });
+      if(!fromCamera) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
   void sendCode(){
     setState(() {
       camState = false;
@@ -41,19 +85,9 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
                     final api = RetrofitApi();
                     api.getApiClient().then((value) {
                       final client = RestClient(value);
-                      client.checkAttendance(codeTextController.text);
+                      client.checkAttendance(codeTextController.text).then((value) => showMessage(value.code, false));
                     });
 
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Text(codeTextController.text),
-                        );
-                      },
-                    ).then((value) {
-                      Navigator.pop(context);
-                    });
                   }, child: Text('Zatwierdź'))
                 ],
               ),
@@ -90,30 +124,17 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
                     final api = RetrofitApi();
                     api.getApiClient().then((value) {
                       final client = RestClient(value);
-                      client.checkAttendance(codeTextController.text);
+                      client.checkAttendance(codeTextController.text)
+                      .then((value) => client.checkAttendance(codeTextController.text).then((value) => showMessage(value.code, false)));
                     });
 
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Text(codeTextController.text),
-                        );
-                      },
-                    ).then((value) {
-                      Navigator.pop(context);
-                    });
                   }, child: Text('Zatwierdź'))
                 ],
               ),
             )
         );
       },
-    ).then((value) {
-      setState((){
-        camState = true;
-      });
-    });
+    );
   }
 
   @override
@@ -136,21 +157,10 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
           final api = RetrofitApi();
           api.getApiClient().then((value) {
             final client = RestClient(value);
-            client.checkAttendance(code!);
+            client.checkAttendance(code!)
+                .then((value) => showMessage(value.code, true));
           });
 
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                content: Text(code!),
-              );
-            },
-          ).then((exit) {
-            setState(() {
-              camState = true;
-            });
-          });
         },
       ) : const Text(''),
     );
