@@ -26,28 +26,38 @@ class _StaffViewState extends State<StaffView> {
 
     return Scaffold(
       body: ListView.separated(
+        padding: EdgeInsets.only(top: 8),
           itemBuilder: (BuildContext context, int index){
             return Container(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 70,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage('${staffList?[index].picture}')
-                        )
-                      ),
-                    ),
-                    Column(
+                    Row(
                       children: [
-                        Text('${staffList?[index].name}', style: TextStyle(fontWeight: FontWeight.w700)),
-                        Text('${staffList?[index].description}', style: TextStyle(color: Colors.grey.shade600),),
+                        Container(
+                          width: 70,
+                          height: 70,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage('${staffList?[index].picture}')
+                              )
+                          ),
+                        ),
+                        Padding(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${staffList?[index].name}', style: TextStyle(fontWeight: FontWeight.w700)),
+                              Text('${staffList?[index].description}', style: TextStyle(color: Colors.grey.shade600),),
+                            ],
+                          ),
+                          padding: EdgeInsets.only(left: 16),
+                        )
+
                       ],
                     ),
                     Row(
