@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -25,6 +26,28 @@ class _LoginFormState extends State<LoginForm> {
     passwordTextController.dispose();
     super.dispose();
   }
+
+  @override
+  void initState(){
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) {
+      String? token = prefs.getString('token');
+      if (token != null && token != ''){
+        final api = RetrofitApi();
+        api.getApiClient().then((dio) {
+        final client = RestClient(dio);
+        client
+            .getUser()
+            .then((response) {
+            if (response.role == Role.Admin) {
+              Navigator.pushReplacement(context, _createRoute());
+            }
+          });
+        });
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {

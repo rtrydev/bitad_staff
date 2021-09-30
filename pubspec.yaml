@@ -15,19 +15,19 @@ dependencies:
   provider: ^5.0.0  
   flutter_svg: ^0.22.0
   cupertino_icons: ^1.0.2
-  retrofit: any
-  logger: any
-  json_annotation: any
+  retrofit: ^2.0.1
+  json_annotation: ^4.1.0
   qr_mobile_vision: ^3.0.1
-  url_launcher: any
+  url_launcher: ^6.0.12
+  shared_preferences: ^2.0.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  retrofit_generator: any
-  build_runner: any
+  retrofit_generator: ^2.0.1+1
+  build_runner: ^2.1.2
   flutter_lints: ^1.0.0
-  json_serializable: any
+  json_serializable: ^5.0.2
 
 flutter:
   uses-material-design: true

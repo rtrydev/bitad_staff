@@ -19,5 +19,8 @@ abstract class RestClient {
 
   @GET("/Staff/GetStaffAdmin")
   Future<List<Staff>> getStaff();
+
+  @GET("/User/GetUser")
+  Future<User> getUser();
 }
 

@@ -1,8 +1,8 @@
 import 'package:bitad_staff/api/retrofit_client.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RetrofitApi {
-  static String token = '';
   static Dio dio = Dio();
   static final RetrofitApi _retrofitApi = RetrofitApi._internal();
 
@@ -14,12 +14,16 @@ class RetrofitApi {
     dio.interceptors.clear();
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (request, handler) {
-        if (token != null && token != '')
-          request.headers['Authorization'] = 'Bearer $token';
+        SharedPreferences.getInstance().then((prefs) {
+          String? token = prefs.getString('token');
+          if (token != null && token != '')
+            request.headers['Authorization'] = 'Bearer $token';
+        });
         return handler.next(request);
       },
       onResponse: (response, handler) {
-        token = response.headers.value('authtoken') ?? '';
+        SharedPreferences.getInstance()
+            .then((prefs) => prefs.setString('token', response.headers.value('authtoken') ?? ''));
         return handler.next(response);
       },
 
