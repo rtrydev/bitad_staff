@@ -39,57 +39,74 @@ class _StaffViewState extends State<StaffView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 70,
-                                height: 70,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: NetworkImage('${snapshot.data?[index].picture}')
-                                    )
-                                ),
-                              ),
-                              Padding(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('${snapshot.data?[index].name}', style: TextStyle(fontWeight: FontWeight.w700, color: Colors.grey[900])),
-                                    Text('${snapshot.data?[index].description}', style: TextStyle(color: Colors.grey.shade600),),
-                                  ],
-                                ),
-                                padding: EdgeInsets.only(left: 16),
-                              )
-
-                            ],
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          Expanded(
+                            flex: 7,
+                            child:
+                            Row(
                               children: [
-                                SizedBox(
-                                  width: 40,
-                                  child: TextButton(
-                                    child: Icon(Icons.phone, color:Colors.blue),
-                                    onPressed: (){
-                                      _launchCaller(snapshot.data?[index].contact);
-                                    },
-                                  ) ,
+                                Container(
+                                  width: 70,
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage('${snapshot.data?[index].picture}')
+                                      )
+                                  ),
                                 ),
                                 SizedBox(
-                                  width: 40,
-                                  child: TextButton(
-                                    child: Icon(Icons.message, color:Colors.blue),
-                                    onPressed: (){
-                                      _launchMessenger(snapshot.data?[index].contact);
-                                    },
-                                  ) ,
-                                )
+                                  width: 210,
+                                  child: Padding(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('${snapshot.data?[index].name}',
+                                            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.grey[900])),
+                                        Text('${snapshot.data?[index].description}',
+                                          style: TextStyle(color: Colors.grey.shade600),
+                                        ),
+                                      ],
+                                    ),
+                                    padding: EdgeInsets.only(left: 16),
+                                  ),
+                                ),
 
-                              ]
 
+                              ],
+                            ),
+
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child:
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SizedBox(
+                                    width: 40,
+                                    child: TextButton(
+                                      child: Icon(Icons.phone, color:Colors.blue),
+                                      onPressed: (){
+                                        _launchCaller(snapshot.data?[index].contact);
+                                      },
+                                    ) ,
+                                  ),
+                                  SizedBox(
+                                    width: 40,
+                                    child: TextButton(
+                                      child: Icon(Icons.message, color:Colors.blue),
+                                      onPressed: (){
+                                        _launchMessenger(snapshot.data?[index].contact);
+                                      },
+                                    ) ,
+                                  )
+
+                                ]
+
+                            ),
                           )
+
 
                         ],
                       )
