@@ -195,12 +195,15 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
         )
     );
 
-    final buttonSection = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        textButton,
-        emailButton
-      ],
+    final buttonSection = Padding(
+      padding: EdgeInsets.only(left: 32, right: 32),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(child: textButton),
+          Expanded(child: emailButton)
+        ],
+      ),
     );
 
     return Column(

@@ -20,7 +20,7 @@ class Attendance extends StatelessWidget {
         backgroundColor: backgroundColor,
         centerTitle: true,
         title: const Text(
-            'Sprawdź Obecność',
+            'Sprawdź obecność',
           textScaleFactor: 1.2,
           style: TextStyle(fontWeight: FontWeight.w500),
         ),
