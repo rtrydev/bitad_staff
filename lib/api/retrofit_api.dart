@@ -42,24 +42,30 @@ class RetrofitApi {
           return;
         }
         if(error.response?.statusCode == 404){
-          showDialog(
-            context: _context!,
-            builder: (context) {
-              return const AlertDialog(
-                content: Text('Nieprawidłowy login lub hasło', textAlign: TextAlign.center,),
-              );
-            },
-          );
+          if(ModalRoute.of(_context!)?.settings.name == '/') {
+            showDialog(
+              context: _context!,
+              builder: (context) {
+                return const AlertDialog(
+                  content: Text('Nieprawidłowy login lub hasło',
+                    textAlign: TextAlign.center,),
+                );
+              },
+            );
+          }
         }
-        if(error.response?.statusCode == 403){
-          showDialog(
-            context: _context!,
-            builder: (context) {
-              return const AlertDialog(
-                content: Text('Konto nie zostało aktywowane', textAlign: TextAlign.center,),
-              );
-            },
-          );
+        if(error.response?.statusCode == 403) {
+          if (ModalRoute.of(_context!)?.settings.name == '/') {
+            showDialog(
+              context: _context!,
+              builder: (context) {
+                return const AlertDialog(
+                  content: Text('Konto nie zostało aktywowane',
+                    textAlign: TextAlign.center,),
+                );
+              },
+            );
+          }
         }
 
       }
