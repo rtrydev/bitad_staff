@@ -1,4 +1,5 @@
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bitad_staff/api/retrofit_api.dart';
 import 'package:bitad_staff/api/retrofit_client.dart';
@@ -124,10 +125,12 @@ class _StaffViewState extends State<StaffView> {
   }
 
   Future<List<Staff>> _getStaff() async {
-  final api = RetrofitApi();
+  final api = RetrofitApi(context);
   final client = await api.getApiClient();
   final restClient = RestClient(client);
-  return await restClient.getStaff();
+  final staff = await restClient.getStaff();
+
+  return staff;
 
 }
 

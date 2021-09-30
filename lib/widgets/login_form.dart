@@ -33,7 +33,7 @@ class _LoginFormState extends State<LoginForm> {
     SharedPreferences.getInstance().then((prefs) {
       String? token = prefs.getString('token');
       if (token != null && token != ''){
-        final api = RetrofitApi();
+        final api = RetrofitApi(context);
         api.getApiClient().then((dio) {
         final client = RestClient(dio);
         client
@@ -89,7 +89,7 @@ class _LoginFormState extends State<LoginForm> {
                     final password = passwordTextController.text;
                     if(username == '' || password == '') return;
 
-                    final api = RetrofitApi();
+                    final api = RetrofitApi(context);
                     api.getApiClient().then((dio) {
                       final client = RestClient(dio);
                       client

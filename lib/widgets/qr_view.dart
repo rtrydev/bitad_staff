@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_mobile_vision/qr_camera.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class QRViewAttendance extends StatefulWidget {
@@ -82,7 +83,7 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
                   const SizedBox(height: 16,),
                   TextFormField(controller: codeTextController,),
                   ElevatedButton(onPressed: (){
-                    final api = RetrofitApi();
+                    final api = RetrofitApi(context);
                     api.getApiClient().then((value) {
                       final client = RestClient(value);
                       client.checkAttendance(codeTextController.text).then((value) => showMessage(value.code, false));
@@ -121,11 +122,13 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
                   const SizedBox(height: 16,),
                   TextFormField(controller: codeTextController,),
                   ElevatedButton(onPressed: (){
-                    final api = RetrofitApi();
+                    final api = RetrofitApi(context);
                     api.getApiClient().then((value) {
                       final client = RestClient(value);
                       client.checkAttendance(codeTextController.text)
-                      .then((value) => client.checkAttendance(codeTextController.text).then((value) => showMessage(value.code, false)));
+                      .then((value) => client.checkAttendance(codeTextController.text)
+                          .then((value) => showMessage(value.code, false)));
+
                     });
 
                   }, child: Text('Zatwierdź'))
@@ -158,11 +161,12 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
             camState = false;
           });
 
-          final api = RetrofitApi();
+          final api = RetrofitApi(context);
           api.getApiClient().then((value) {
             final client = RestClient(value);
             client.checkAttendance(code!)
                 .then((value) => showMessage(value.code, true));
+
           });
 
         },
