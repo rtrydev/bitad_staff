@@ -56,7 +56,7 @@ class _StaffViewState extends State<StaffView> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('${snapshot.data?[index].name}', style: TextStyle(fontWeight: FontWeight.w700)),
+                                    Text('${snapshot.data?[index].name}', style: TextStyle(fontWeight: FontWeight.w700, color: Colors.grey[900])),
                                     Text('${snapshot.data?[index].description}', style: TextStyle(color: Colors.grey.shade600),),
                                   ],
                                 ),

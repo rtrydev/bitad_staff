@@ -14,10 +14,10 @@ class Contacts extends StatelessWidget{
       appBar: AppBar(
         backgroundColor: backgroundColor,
         centerTitle: true,
-        title: const Text('Kontakty', textScaleFactor: 1.2,
-          style: TextStyle(fontWeight: FontWeight.w500),),
+        title: Text('Kontakty', textScaleFactor: 1.2,
+          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey[900]),),
         leading:
-          IconButton(icon: const Icon(Icons.arrow_back, color: Colors.black,), onPressed: (){
+          IconButton(icon: Icon(Icons.arrow_back, color: Colors.grey[900],), onPressed: (){
             Navigator.pushReplacement(context, _createRoute());
           },)
 

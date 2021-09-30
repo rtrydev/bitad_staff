@@ -19,13 +19,13 @@ class Attendance extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         centerTitle: true,
-        title: const Text(
+        title: Text(
             'Sprawdź obecność',
           textScaleFactor: 1.2,
-          style: TextStyle(fontWeight: FontWeight.w500),
+          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey[900]),
         ),
         actions: [
-          IconButton(icon: const Icon(Icons.contacts, color: Colors.black,), onPressed: (){
+          IconButton(icon: Icon(Icons.contacts, color: Colors.grey[900],), onPressed: (){
             Navigator.pushReplacement(context, _createRoute());
           },)
         ],
