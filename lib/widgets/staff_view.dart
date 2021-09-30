@@ -1,5 +1,5 @@
 
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:bitad_staff/api/retrofit_api.dart';
 import 'package:bitad_staff/api/retrofit_client.dart';
 import 'package:bitad_staff/models/staff.dart';
@@ -62,12 +62,26 @@ class _StaffViewState extends State<StaffView> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Padding(
-                            child: Icon(Icons.phone, color: Colors.blue,) ,
-                            padding: EdgeInsets.only(right: 16),
+                        children: [
+                          SizedBox(
+                            width: 40,
+                            child: TextButton(
+                              child: Icon(Icons.phone, color:Colors.blue),
+                              onPressed: (){
+                                _launchCaller(staffList?[index].contact);
+                              },
+                            ) ,
                           ),
-                          Icon(Icons.message, color: Colors.blue,)
+                          SizedBox(
+                            width: 40,
+                            child: TextButton(
+                              child: Icon(Icons.message, color:Colors.blue),
+                              onPressed: (){
+                                _launchMessenger(staffList?[index].contact);
+                              },
+                            ) ,
+                          )
+
                         ]
 
                     )
@@ -80,6 +94,24 @@ class _StaffViewState extends State<StaffView> {
           separatorBuilder: (BuildContext context, int index) => const Divider(),
           itemCount: staffList?.length ?? 0),
     );
+  }
+
+  void _launchCaller(String? number) async {
+    final url = "tel:$number";
+    if (await canLaunch(url)){
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void _launchMessenger(String? number) async {
+    final url = "sms:$number";
+    if (await canLaunch(url)){
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
 }

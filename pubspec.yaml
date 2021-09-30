@@ -19,6 +19,7 @@ dependencies:
   logger: any
   json_annotation: any
   qr_mobile_vision: ^3.0.1
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:
