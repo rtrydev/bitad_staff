@@ -2,12 +2,14 @@ import 'package:bitad_staff/screens/attendance.dart';
 import 'package:bitad_staff/screens/login.dart';
 import 'package:bitad_staff/screens/contacts.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 import 'common/theme.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((value) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
