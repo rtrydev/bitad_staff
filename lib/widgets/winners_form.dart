@@ -43,7 +43,7 @@ class _WinnersFormState extends State<WinnersForm> {
             children: [
               TextFormField(
                 decoration: const InputDecoration(
-                  hintText: 'ilość osób do wylosowania',
+                  hintText: 'Liczba osób do wylosowania',
                 ),
                 controller: numberOfWinnersTextController,
                 textAlignVertical: TextAlignVertical.bottom,
@@ -65,17 +65,19 @@ class _WinnersFormState extends State<WinnersForm> {
                       final client = RestClient(dio);
 
                       var result = await client.getWinners(int.parse(numberOfWinners));
+                      var dialogHeight = 70.0*result.length;
+                      if(dialogHeight > 500) dialogHeight = 500;
 
                       showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
                             content: Container(
-                              height: 70.0*result.length,
+                              height: dialogHeight,
                               width: 300,
                               child: ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
                                 return ListTile(
-                                  title: Text(result[index].username +'  |  '+result[index].email),
+                                  title: Text((index + 1).toString() + '.  ' + result[index].username +'  |  '+result[index].email),
                                 );
                               }),
                             ),
