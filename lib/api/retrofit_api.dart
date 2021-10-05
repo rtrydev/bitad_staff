@@ -1,10 +1,12 @@
 import 'package:bitad_staff/api/retrofit_client.dart';
+import 'package:bitad_staff/models/user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RetrofitApi {
   static Dio dio = Dio();
+  static Role userRole = Role.Guest;
   static BuildContext? _context;
   static final RetrofitApi _retrofitApi = RetrofitApi._internal();
 
@@ -25,7 +27,6 @@ class RetrofitApi {
         return handler.next(request);
       },
       onResponse: (response, handler) {
-
 
         SharedPreferences.getInstance()
             .then((prefs) => prefs.setString('token', response.headers.value('authtoken') ?? ''));

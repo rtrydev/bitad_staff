@@ -1,3 +1,6 @@
+import 'package:bitad_staff/api/retrofit_api.dart';
+import 'package:bitad_staff/api/retrofit_client.dart';
+import 'package:bitad_staff/models/user.dart';
 import 'package:bitad_staff/screens/contacts.dart';
 import 'package:bitad_staff/screens/winners.dart';
 import 'package:bitad_staff/widgets/qr_view.dart';
@@ -14,8 +17,6 @@ class Attendance extends StatelessWidget {
     final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
     final qrCamera = QRViewAttendance();
 
-
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: backgroundColor,
@@ -30,10 +31,10 @@ class Attendance extends StatelessWidget {
             Navigator.pushReplacement(context, _createRouteContacts());
           },)
         ],
-        leading:
+        leading: RetrofitApi.userRole == Role.Super ?
         IconButton(icon: Icon(Icons.emoji_events, color: Colors.grey[900],), onPressed: (){
           Navigator.pushReplacement(context, _createRouteWinners());
-        },)
+        },) : Container()
 
       ),
       body: qrCamera

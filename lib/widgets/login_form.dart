@@ -39,7 +39,8 @@ class _LoginFormState extends State<LoginForm> {
         client
             .getUser()
             .then((response) {
-            if (response.role == Role.Admin) {
+              RetrofitApi.userRole = response.role;
+            if (response.role != Role.Guest) {
               Navigator.pushReplacement(context, _createRoute());
             }
           });
@@ -95,6 +96,7 @@ class _LoginFormState extends State<LoginForm> {
                       client
                           .authenticateUser(UserLogin(username: username, password: password))
                           .then((response) {
+                        RetrofitApi.userRole = response.role;
                         if(response.role == Role.Admin || response.role == Role.Super){
                           Navigator.pushReplacement(context, _createRoute());
 
@@ -113,7 +115,7 @@ class _LoginFormState extends State<LoginForm> {
                           context: context,
                           builder: (context) {
                             return const AlertDialog(
-                              content: Text('Nieprawidłowy login lub hasdkjfhsdjfhsłsdo', textAlign: TextAlign.center,),
+                              content: Text('Błąd', textAlign: TextAlign.center,),
                             );
                           },
                         );
