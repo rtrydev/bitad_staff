@@ -1,4 +1,5 @@
 import 'package:bitad_staff/screens/contacts.dart';
+import 'package:bitad_staff/screens/winners.dart';
 import 'package:bitad_staff/widgets/qr_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,17 +27,40 @@ class Attendance extends StatelessWidget {
         ),
         actions: [
           IconButton(icon: Icon(Icons.contacts, color: Colors.grey[900],), onPressed: (){
-            Navigator.pushReplacement(context, _createRoute());
+            Navigator.pushReplacement(context, _createRouteContacts());
           },)
         ],
+        leading:
+        IconButton(icon: Icon(Icons.star, color: Colors.grey[900],), onPressed: (){
+          Navigator.pushReplacement(context, _createRouteWinners());
+        },)
+
       ),
       body: qrCamera
     );
   }
 
-  Route _createRoute(){
+  Route _createRouteContacts(){
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => Contacts(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route _createRouteWinners(){
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => Winners(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;

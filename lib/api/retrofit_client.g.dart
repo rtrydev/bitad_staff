@@ -8,7 +8,7 @@ part of 'retrofit_client.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://212.106.184.93:8080/';
+    baseUrl ??= 'http://10.0.2.2:8080/';
   }
 
   final Dio _dio;
@@ -72,6 +72,24 @@ class _RestClient implements RestClient {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = User.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<User>> getWinners(numberOfWinners) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'numberOfWinners': numberOfWinners
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(
+        Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+            .compose(_dio.options, '/User/Winners',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => User.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

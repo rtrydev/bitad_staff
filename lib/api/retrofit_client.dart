@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 
 part 'retrofit_client.g.dart';
 
-@RestApi(baseUrl: "http://212.106.184.93:8080/")
+@RestApi(baseUrl: "http://10.0.2.2:8080/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
@@ -22,5 +22,8 @@ abstract class RestClient {
 
   @GET("/User/GetUser")
   Future<User> getUser();
+
+  @GET("/User/Winners")
+  Future<List<User>> getWinners(@Query ("numberOfWinners") int numberOfWinners);
 }
 

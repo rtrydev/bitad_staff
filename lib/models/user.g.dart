@@ -51,4 +51,5 @@ K _$enumDecode<K, V>(
 const _$RoleEnumMap = {
   Role.Guest: 'Guest',
   Role.Admin: 'Admin',
+  Role.Super: 'Super',
 };

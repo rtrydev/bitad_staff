@@ -1,6 +1,7 @@
 import 'package:bitad_staff/screens/attendance.dart';
 import 'package:bitad_staff/screens/login.dart';
 import 'package:bitad_staff/screens/contacts.dart';
+import 'package:bitad_staff/screens/winners.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => Login(),
           '/attendance': (context) => Attendance(),
-          '/contacts': (context) => Contacts()
+          '/contacts': (context) => Contacts(),
+          '/winners' : (context) => Winners()
         });
   }
 }

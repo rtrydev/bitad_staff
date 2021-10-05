@@ -4,7 +4,8 @@ part 'user.g.dart';
 
 enum Role {
   Guest,
-  Admin
+  Admin,
+  Super
 }
 
 @JsonSerializable()

@@ -95,7 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                       client
                           .authenticateUser(UserLogin(username: username, password: password))
                           .then((response) {
-                        if(response.role == Role.Admin){
+                        if(response.role == Role.Admin || response.role == Role.Super){
                           Navigator.pushReplacement(context, _createRoute());
 
                         } else {
@@ -113,7 +113,7 @@ class _LoginFormState extends State<LoginForm> {
                           context: context,
                           builder: (context) {
                             return const AlertDialog(
-                              content: Text('Nieprawidłowy login lub hasło', textAlign: TextAlign.center,),
+                              content: Text('Nieprawidłowy login lub hasdkjfhsdjfhsłsdo', textAlign: TextAlign.center,),
                             );
                           },
                         );
