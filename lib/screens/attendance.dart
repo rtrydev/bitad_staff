@@ -31,7 +31,7 @@ class Attendance extends StatelessWidget {
           },)
         ],
         leading:
-        IconButton(icon: Icon(Icons.star, color: Colors.grey[900],), onPressed: (){
+        IconButton(icon: Icon(Icons.emoji_events, color: Colors.grey[900],), onPressed: (){
           Navigator.pushReplacement(context, _createRouteWinners());
         },)
 
@@ -62,7 +62,7 @@ class Attendance extends StatelessWidget {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => Winners(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0);
+        const begin = Offset(-1.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.ease;
 
