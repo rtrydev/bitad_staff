@@ -76,7 +76,6 @@ class _WinnersFormState extends State<WinnersForm> {
                               child: ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
                                 return ListTile(
                                   title: Text(result[index].username +'  |  '+result[index].email),
-                                  subtitle: Text(result[index].firstName + ' ' + result[index].lastName),
                                 );
                               }),
                             ),
