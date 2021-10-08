@@ -126,8 +126,7 @@ class _QRViewAttendanceState extends State<QRViewAttendance> {
                     api.getApiClient().then((value) {
                       final client = RestClient(value);
                       client.checkAttendance(codeTextController.text)
-                      .then((value) => client.checkAttendance(codeTextController.text)
-                          .then((value) => showMessage(value.code, false)));
+                          .then((value) => showMessage(value.code, false));
 
                     });
 
