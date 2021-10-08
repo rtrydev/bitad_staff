@@ -30,108 +30,95 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState(){
     super.initState();
-    SharedPreferences.getInstance().then((prefs) {
-      String? token = prefs.getString('token');
-      if (token != null && token != ''){
-        final api = RetrofitApi(context);
-        api.getApiClient().then((dio) {
-        final client = RestClient(dio);
-        client
-            .getUser()
-            .then((response) {
-              RetrofitApi.userRole = response.role;
-            if (response.role != Role.Guest) {
-              Navigator.pushReplacement(context, _createRoute());
-            }
-          });
-        });
-      }
-    });
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 80.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset('assets/images/bitad-logo.svg'),
-              const SizedBox(
-                height: 8,
-              ),
-              Text('STAFF APP', style: TextStyle(fontSize: 16)),
-              const SizedBox(
-                height: 48,
-              ),
-              TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'login',
-                  ),
-                controller: loginTextController,
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(hintText: 'hasło'),
-                obscureText: true,
-                controller: passwordTextController,
-              ),
-              const SizedBox(
-                height: 32,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    final username = loginTextController.text;
-                    final password = passwordTextController.text;
-                    if(username == '' || password == '') return;
 
-                    final api = RetrofitApi(context);
-                    api.getApiClient().then((dio) {
-                      final client = RestClient(dio);
-                      client
-                          .authenticateUser(UserLogin(username: username, password: password))
-                          .then((response) {
-                        RetrofitApi.userRole = response.role;
-                        if(response.role == Role.Admin || response.role == Role.Super){
-                          Navigator.pushReplacement(context, _createRoute());
+    Widget loginBody = Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 80.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset('assets/images/bitad-logo.svg'),
+            const SizedBox(
+              height: 8,
+            ),
+            Text('STAFF APP', style: TextStyle(fontSize: 16)),
+            const SizedBox(
+              height: 48,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: 'login',
+              ),
+              controller: loginTextController,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(hintText: 'hasło'),
+              obscureText: true,
+              controller: passwordTextController,
+            ),
+            const SizedBox(
+              height: 32,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  final username = loginTextController.text;
+                  final password = passwordTextController.text;
+                  if(username == '' || password == '') return;
 
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const AlertDialog(
-                                content: Text('Brak uprawnień do korzystania z tej aplikacji', textAlign: TextAlign.center,),
-                              );
-                            },
-                          );
-                        }
-                      }).catchError((error) {
+                  final api = RetrofitApi(context);
+                  api.getApiClient().then((dio) {
+                    final client = RestClient(dio);
+                    client
+                        .authenticateUser(UserLogin(username: username, password: password))
+                        .then((response) {
+                      RetrofitApi.userRole = response.role;
+                      if(response.role == Role.Admin || response.role == Role.Super){
+                        Navigator.pushReplacement(context, _createRoute());
+
+                      } else {
                         showDialog(
                           context: context,
                           builder: (context) {
                             return const AlertDialog(
-                              content: Text('Błąd', textAlign: TextAlign.center,),
+                              content: Text('Brak uprawnień do korzystania z tej aplikacji', textAlign: TextAlign.center,),
                             );
                           },
                         );
+                      }
+                    }).catchError((error) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                            content: Text('Błąd', textAlign: TextAlign.center,),
+                          );
+                        },
+                      );
 
-                      });
                     });
-                  },
-                  style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(const Size(110, 35)),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0)))),
-                  child: const Text('Zaloguj się', textScaleFactor: 1.2,))
-            ],
-          ),
+                  });
+                },
+                style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(const Size(110, 35)),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0)))),
+                child: const Text('Zaloguj się', textScaleFactor: 1.2,))
+          ],
         ),
       ),
+    );
+
+
+    return Scaffold(
+      body: loginBody
     );
 
   }

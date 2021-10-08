@@ -35,14 +35,19 @@ class RetrofitApi {
       },
       onError: (error, handler) {
         if(error.response?.statusCode == 401){
+          if(ModalRoute.of(_context!)?.settings.name == '/login'){
+            SharedPreferences.getInstance().then((pref) {
+              if(pref.getString('token') == ''){
+                return;
+              }
+            });
+          }
           SharedPreferences.getInstance()
               .then((prefs) => prefs.setString('token', ''));
-          if(ModalRoute.of(_context!)?.settings.name != '/'){
-            Navigator.pushReplacementNamed(_context!, '/');
-          }
+          Navigator.pushReplacementNamed(_context!, '/login');
           return;
         }
-        if(ModalRoute.of(_context!)?.settings.name == '/') {
+        if(ModalRoute.of(_context!)?.settings.name == '/login') {
           String message = '';
           if(error.response?.statusCode == 404){
             message = 'Nieprawidłowy login lub hasło';
