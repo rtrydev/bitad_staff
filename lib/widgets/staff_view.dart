@@ -85,21 +85,21 @@ class _StaffViewState extends State<StaffView> {
                                 children: [
                                   SizedBox(
                                     width: 40,
-                                    child: TextButton(
+                                    child: snapshot.data?[index].contact != null ? TextButton(
                                       child: Icon(Icons.phone, color:Colors.blue),
                                       onPressed: (){
                                         _launchCaller(snapshot.data?[index].contact);
                                       },
-                                    ) ,
+                                    ) : Container() ,
                                   ),
                                   SizedBox(
                                     width: 40,
-                                    child: TextButton(
+                                    child: snapshot.data?[index].contact != null ? TextButton(
                                       child: Icon(Icons.message, color:Colors.blue),
                                       onPressed: (){
                                         _launchMessenger(snapshot.data?[index].contact);
                                       },
-                                    ) ,
+                                    ) : Container(),
                                   )
 
                                 ]
