@@ -48,7 +48,7 @@ class RetrofitApi {
           return;
         }
         if(ModalRoute.of(_context!)?.settings.name == '/login') {
-          String message = '';
+          String message = 'Nieznany błąd';
           if(error.response?.statusCode == 404){
             message = 'Nieprawidłowy login lub hasło';
           }else if(error.response?.statusCode == 403) {
