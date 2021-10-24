@@ -29,7 +29,7 @@ class RetrofitApi {
       onResponse: (response, handler) {
 
         SharedPreferences.getInstance()
-            .then((prefs) => prefs.setString('token', response.headers.value('authtoken') ?? ''));
+            .then((prefs) => prefs.setString('token', response.headers.value('authtoken') ?? prefs.getString('token') ?? ''));
 
         return handler.next(response);
       },

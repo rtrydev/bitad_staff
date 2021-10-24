@@ -3,6 +3,7 @@ import 'package:bitad_staff/screens/login.dart';
 import 'package:bitad_staff/screens/contacts.dart';
 import 'package:bitad_staff/screens/splash.dart';
 import 'package:bitad_staff/screens/winners.dart';
+import 'package:bitad_staff/screens/workshops.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
           '/contacts': (context) => Contacts(),
           '/winners' : (context) => Winners(),
           '/login' : (context) => Login(),
+          '/workshops' : (context) => Workshops()
         });
   }
 }
