@@ -29,7 +29,8 @@ class Attendance extends StatelessWidget {
         actions: [
           IconButton(icon: Icon(Icons.contacts, color: Colors.grey[900],), onPressed: (){
             Navigator.pushReplacement(context, _createRouteContacts());
-          },)
+          },),
+          IconButton(onPressed: (){}, icon: Icon(Icons.text_snippet_outlined, color: Colors.grey[900],) )
         ],
         leading: RetrofitApi.userRole == Role.Super ?
         IconButton(icon: Icon(Icons.emoji_events, color: Colors.grey[900],), onPressed: (){
