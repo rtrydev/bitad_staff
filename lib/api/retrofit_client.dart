@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 
 part 'retrofit_client.g.dart';
 
-@RestApi(baseUrl: "https://bitad.ath.bielsko.pl:8080/")
+@RestApi(baseUrl: "http://212.106.184.93:8080/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
@@ -34,5 +34,14 @@ abstract class RestClient {
 
   @GET("/Workshop/GetWorkshopParticipants")
   Future<List<Attendant>> getWorkshopParticipants(@Query("workshopCode") String workshopCode);
+
+  @POST("/Staff/SendConfirmationMails")
+  Future sendConfirmationMails();
+
+  @POST("/Staff/ExcludeInactiveUsersFromWorkshops")
+  Future excludeInactiveUsersFromWorkshops();
+
+  @POST("/Staff/BanWorkshopInactiveAccounts")
+  Future banWorkshopInactiveAccounts(@Query("workshopCode") String workshopCode);
 }
 

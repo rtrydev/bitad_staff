@@ -2,6 +2,7 @@ import 'package:bitad_staff/api/retrofit_api.dart';
 import 'package:bitad_staff/api/retrofit_client.dart';
 import 'package:bitad_staff/models/user.dart';
 import 'package:bitad_staff/screens/contacts.dart';
+import 'package:bitad_staff/screens/super.dart';
 import 'package:bitad_staff/screens/winners.dart';
 import 'package:bitad_staff/screens/workshops.dart';
 import 'package:bitad_staff/widgets/qr_view.dart';
@@ -36,8 +37,8 @@ class Attendance extends StatelessWidget {
           }, icon: Icon(Icons.text_snippet_outlined, color: Colors.grey[900],) )
         ],
         leading: RetrofitApi.userRole == Role.Super ?
-        IconButton(icon: Icon(Icons.emoji_events, color: Colors.grey[900],), onPressed: (){
-          Navigator.pushReplacement(context, _createRouteWinners());
+        IconButton(icon: Icon(Icons.star, color: Colors.grey[900],), onPressed: (){
+          Navigator.pushReplacement(context, _createRouteSuper());
         },) : Container()
 
       ),
@@ -81,9 +82,9 @@ class Attendance extends StatelessWidget {
     );
   }
 
-  Route _createRouteWinners(){
+  Route _createRouteSuper(){
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => Winners(),
+      pageBuilder: (context, animation, secondaryAnimation) => SuperMenu(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(-1.0, 0.0);
         const end = Offset.zero;
