@@ -43,5 +43,8 @@ abstract class RestClient {
 
   @POST("/Staff/BanWorkshopInactiveAccounts")
   Future banWorkshopInactiveAccounts(@Query("workshopCode") String workshopCode);
+
+  @PUT("/User/CheckWorkshopAttendance")
+  Future<AttendanceResult> checkWorkshopAttendance(@Query("attendanceCode") String attendanceCode, @Query("workshopCode") String workshopCode);
 }
 
