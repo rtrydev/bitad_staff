@@ -9,11 +9,11 @@ part of 'attendant.dart';
 Attendant _$AttendantFromJson(Map<String, dynamic> json) => Attendant(
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
-      workshopAttendanceCode: json['workshopAttendanceCode'] as String?,
+      eMail: json['eMail'] as String?,
     );
 
 Map<String, dynamic> _$AttendantToJson(Attendant instance) => <String, dynamic>{
       'firstName': instance.firstName,
       'lastName': instance.lastName,
-      'workshopAttendanceCode': instance.workshopAttendanceCode,
+      'eMail': instance.eMail,
     };

@@ -84,8 +84,10 @@ class _WinnersFormState extends State<WinnersForm> {
                                   ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
                                     final firstName = result[index].firstName ?? '';
                                     final lastName = result[index].lastName ?? '';
+                                    final rewardCode = result[index].rewardCode ?? '';
+                                    final email = result[index].email ?? '';
                                     return ListTile(
-                                      title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+result[index].email),
+                                      title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+ rewardCode + '  |  ' + email),
                                     );
                                   }),
                                   SizedBox(
@@ -105,7 +107,9 @@ class _WinnersFormState extends State<WinnersForm> {
                                       var lines = List.generate(result.length, (i) {
                                         final firstName = result[i].firstName ?? '';
                                         final lastName = result[i].lastName ?? '';
-                                        return (i + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+result[i].email;
+                                        final rewardCode = result[i].rewardCode ?? '';
+                                        final email = result[i].email ?? '';
+                                        return (i + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+ rewardCode + '  |  ' + email;
                                       });
                                       final path = '${directory}/bitad-winners-'+DateTime.now().toString().split('.')[0].replaceFirst(' ', '-').replaceAll(':', '.')+'.txt';
                                       var outputFile = await File(path).create();

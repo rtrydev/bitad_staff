@@ -15,8 +15,9 @@ class User {
   final Role role;
   final String? firstName;
   final String? lastName;
+  final String? rewardCode;
 
-  User({required this.username, required this.email, required this.role, this.firstName, this.lastName});
+  User({required this.username, required this.email, required this.role, this.firstName, this.lastName, this.rewardCode});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);

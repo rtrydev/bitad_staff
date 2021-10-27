@@ -91,9 +91,9 @@ class _QRViewWorkshop extends State<QRViewWorkshop> {
                 ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
                   final firstName = result[index].firstName ?? '';
                   final lastName = result[index].lastName ?? '';
-                  final code = result[index].workshopAttendanceCode ?? '';
+                  final email = result[index].eMail ?? '';
                   return ListTile(
-                    title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+code),
+                    title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+email),
                   );
                 }),
                 SizedBox(
@@ -113,8 +113,8 @@ class _QRViewWorkshop extends State<QRViewWorkshop> {
                       var lines = List.generate(result.length, (i) {
                         final firstName = result[i].firstName ?? '';
                         final lastName = result[i].lastName ?? '';
-                        final code = result[i].workshopAttendanceCode ?? '';
-                        return (i + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+code;
+                        final email = result[i].eMail ?? '';
+                        return (i + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+email;
                       });
                       final path = directory+ '/' + widget.title.replaceAll(' ', '-')+'-'+DateTime.now().toString().split('.')[0].replaceFirst(' ', '-').replaceAll(':', '.')+'.txt';
                       var outputFile = await File(path).create();

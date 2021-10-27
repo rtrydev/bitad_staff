@@ -6,9 +6,9 @@ part 'attendant.g.dart';
 class Attendant {
   final String? firstName;
   final String? lastName;
-  final String? workshopAttendanceCode;
+  final String? eMail;
 
-  Attendant({ this.firstName,  this.lastName, this.workshopAttendanceCode});
+  Attendant({ this.firstName,  this.lastName, this.eMail});
 
   factory Attendant.fromJson(Map<String, dynamic> json) => _$AttendantFromJson(json);
   Map<String, dynamic> toJson() => _$AttendantToJson(this);
