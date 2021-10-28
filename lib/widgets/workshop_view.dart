@@ -94,10 +94,69 @@ class _WorkshopViewState extends State<WorkshopView> {
                             ],
                           )
                       ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(
-                                builder: (context) => WorkshopAttendance(title: snapshot.data![index].title, workshopCode: snapshot.data![index].code)));
+                      onTap: () async {
+                        final result = await _getAttendants(snapshot.data![index].code);
+                        var dialogHeight = 70.0*result.length + 55;
+                        if(dialogHeight > 555) dialogHeight = 555;
+                        if(dialogHeight == 55) dialogHeight += 15;
+
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Container(
+                                height: dialogHeight,
+                                width: 300,
+                                child: Column(
+                                  children: [
+                                    ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
+                                      final firstName = result[index].firstName ?? '';
+                                      final lastName = result[index].lastName ?? '';
+                                      final email = result[index].eMail ?? '';
+                                      return ListTile(
+                                        title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+email),
+                                      );
+                                    }),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () async {
+                                          var status = await Permission.storage.status;
+                                          if (!status.isGranted) {
+                                            // You can request multiple permissions at once.
+                                            Map<Permission, PermissionStatus> statuses = await [
+                                              Permission.storage
+                                            ].request();
+                                          }
+                                          final directory = '/storage/emulated/0/Download/Bitad';
+                                          await Directory(directory).create();
+                                          var lines = List.generate(result.length, (i) {
+                                            final firstName = result[i].firstName ?? '';
+                                            final lastName = result[i].lastName ?? '';
+                                            final email = result[i].eMail ?? '';
+                                            return (i + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+email;
+                                          });
+                                          final path = directory+ '/' + snapshot.data![index].title.replaceAll(' ', '-')+'-'+DateTime.now().toString().split('.')[0].replaceFirst(' ', '-').replaceAll(':', '.')+'.txt';
+                                          var outputFile = await File(path).create();
+                                          for(int j = 0; j<result.length; j++) {
+                                            outputFile.writeAsStringSync('${lines[j]}\n\n', mode: FileMode.append);
+                                          }
+                                          final snackBar = SnackBar(content: Text('Zapisano w ${path}'));
+                                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                                        },
+                                        style: ButtonStyle(
+                                            minimumSize: MaterialStateProperty.all(const Size(110, 35)),
+                                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(16.0)))),
+                                        child: const Text('Zapisz do pliku', textScaleFactor: 1.2,))
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
 
                       },
                     );

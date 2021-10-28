@@ -46,5 +46,11 @@ abstract class RestClient {
 
   @PUT("/User/CheckWorkshopAttendance")
   Future<AttendanceResult> checkWorkshopAttendance(@Query("attendanceCode") String attendanceCode, @Query("workshopCode") String workshopCode);
+
+  @PUT("/Staff/BanUser")
+  Future<User> banUser(@Query("email") String email);
+
+  @PUT("/Staff/UnbanUser")
+  Future<User> unbanUser(@Query("email") String email);
 }
 

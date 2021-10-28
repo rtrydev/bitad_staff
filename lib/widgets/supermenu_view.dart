@@ -44,17 +44,19 @@ class _SuperMenuView extends State<SuperMenuView> {
 
   @override
   Widget build(BuildContext context) {
-    var optionList = List.generate(3, (index) {
+    var optionList = List.generate(5, (index) {
       switch(index){
         case 0: return OptionInformation(optionIcon: Icons.emoji_events, optionName: "Losuj zwycięzców");
         case 1: return OptionInformation(optionIcon: Icons.mail, optionName: "Wyślij maile z potwierdzeniem obecności");
         case 2: return OptionInformation(optionIcon: Icons.delete_forever, optionName: "Usuń nieaktywnych użytkowników z warsztatów");
+        case 3: return OptionInformation(optionIcon: Icons.block, optionName: "Wyklucz użytkownika z udziału w losowaniu");
+        case 4: return OptionInformation(optionIcon: Icons.check, optionName: "Przywróć użytkownika do udziału w losowaniu");
       }
     });
     
     return Scaffold(
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: 5,
         itemBuilder: (_, i) {
           return ListTile(
             title: Text(optionList[i]!.optionName),
@@ -140,6 +142,110 @@ class _SuperMenuView extends State<SuperMenuView> {
                                         final snackBar = SnackBar(content: Text('Usunięto z workshopów nieaktywnych użytkowników'));
                                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                         Navigator.pop(context);
+                                      });
+                                    }
+
+
+                                  },
+                                  style: ButtonStyle(
+                                      minimumSize: MaterialStateProperty.all(const Size(110, 35)),
+                                      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)))),
+                                  child: Text("Ok", textScaleFactor: 1.2,))
+                            ],
+                          ),
+                        )
+                    );
+                  });
+                  break;
+                case 3:
+                  showDialog(context: context, builder: (context){
+                    textController.clear();
+                    return AlertDialog(
+                        content: Container(
+                          height: 220,
+                          child: Column(
+                            children: [
+                              Text('Wpisz email użytkownika do zbanowania'),
+                              SizedBox(
+                                height: 41,
+                              ),
+                              TextField(
+                                controller: textController,
+                              ),
+                              SizedBox(
+                                height: 41,
+                              ),
+                              ElevatedButton(
+                                  onPressed: (){
+                                    if(textController.text != ""){
+                                      final api = RetrofitApi(context);
+
+
+                                      api.getApiClient().then((dio) async {
+                                        final client = RestClient(dio);
+
+                                        var result = await client.banUser(textController.text);
+                                        textController.clear();
+                                        showDialog(context: context, builder: (context) {
+                                          return AlertDialog(
+                                            content: Padding(
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Text("Zbanowano " + result.firstName! + ' ' + result.lastName!),
+                                            ),
+                                          );
+                                        });
+                                      });
+                                    }
+
+
+                                  },
+                                  style: ButtonStyle(
+                                      minimumSize: MaterialStateProperty.all(const Size(110, 35)),
+                                      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)))),
+                                  child: Text("Ok", textScaleFactor: 1.2,))
+                            ],
+                          ),
+                        )
+                    );
+                  });
+                  break;
+                case 4:
+                  showDialog(context: context, builder: (context){
+                    textController.clear();
+                    return AlertDialog(
+                        content: Container(
+                          height: 220,
+                          child: Column(
+                            children: [
+                              Text('Wpisz email użytkownika do odbanowania'),
+                              SizedBox(
+                                height: 41,
+                              ),
+                              TextField(
+                                controller: textController,
+                              ),
+                              SizedBox(
+                                height: 41,
+                              ),
+                              ElevatedButton(
+                                  onPressed: (){
+                                    if(textController.text != ""){
+                                      final api = RetrofitApi(context);
+
+
+                                      api.getApiClient().then((dio) async {
+                                        final client = RestClient(dio);
+
+                                        var result = await client.unbanUser(textController.text);
+                                        textController.clear();
+                                        showDialog(context: context, builder: (context) {
+                                          return AlertDialog(
+                                            content: Padding(
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Text("Odbanowano " + result.firstName! + ' ' + result.lastName!),
+                                            ),
+                                          );
+                                        });
                                       });
                                     }
 

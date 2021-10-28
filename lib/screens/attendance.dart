@@ -34,10 +34,10 @@ class Attendance extends StatelessWidget {
           },),
           IconButton(onPressed: (){
             Navigator.pushReplacement(context, _createRouteWorkshops());
-          }, icon: Icon(Icons.text_snippet_outlined, color: Colors.grey[900],) )
+          }, icon: Icon(Icons.text_snippet, color: Colors.grey[900],) )
         ],
         leading: RetrofitApi.userRole == Role.Super ?
-        IconButton(icon: Icon(Icons.star, color: Colors.grey[900],), onPressed: (){
+        IconButton(icon: Icon(Icons.admin_panel_settings, color: Colors.grey[900],), onPressed: (){
           Navigator.pushReplacement(context, _createRouteSuper());
         },) : Container()
 

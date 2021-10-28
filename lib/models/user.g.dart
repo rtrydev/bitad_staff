@@ -7,7 +7,6 @@ part of 'user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-      username: json['username'] as String,
       email: json['email'] as String,
       role: _$enumDecode(_$RoleEnumMap, json['role']),
       firstName: json['firstName'] as String?,
@@ -16,7 +15,6 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'username': instance.username,
       'email': instance.email,
       'role': _$RoleEnumMap[instance.role],
       'firstName': instance.firstName,
