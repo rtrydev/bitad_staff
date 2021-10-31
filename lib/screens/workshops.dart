@@ -10,20 +10,25 @@ class Workshops extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: backgroundColor,
-          centerTitle: true,
-          title: Text('Wybierz workshop', textScaleFactor: 1.2,
-            style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey[900]),),
-          leading:
-          IconButton(icon: Icon(Icons.arrow_back, color: Colors.grey[900],), onPressed: (){
-            Navigator.pushReplacement(context, _createRoute());
-          },)
+    return WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
+              backgroundColor: backgroundColor,
+              centerTitle: true,
+              title: Text('Wybierz workshop', textScaleFactor: 1.2,
+                style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey[900]),),
+              leading:
+              IconButton(icon: Icon(Icons.arrow_back, color: Colors.grey[900],), onPressed: (){
+                Navigator.pushReplacement(context, _createRoute());
+              },)
 
-      ),
-      body: WorkshopView(),
-    );
+          ),
+          body: WorkshopView(),
+        ),
+        onWillPop: () async {
+          Navigator.pushReplacement(context, _createRoute());
+          return false;
+        });
   }
 
   Route _createRoute(){
