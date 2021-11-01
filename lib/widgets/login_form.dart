@@ -52,7 +52,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(
-                hintText: 'login',
+                hintText: 'email',
               ),
               controller: loginTextController,
             ),
@@ -69,15 +69,15 @@ class _LoginFormState extends State<LoginForm> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  final username = loginTextController.text;
+                  final email = loginTextController.text;
                   final password = passwordTextController.text;
-                  if(username == '' || password == '') return;
+                  if(email == '' || password == '') return;
 
                   final api = RetrofitApi(context);
                   api.getApiClient().then((dio) {
                     final client = RestClient(dio);
                     client
-                        .authenticateUser(UserLogin(username: username, password: password))
+                        .authenticateUser(UserLogin(email: email, password: password))
                         .then((response) {
                       RetrofitApi.userRole = response.role;
                       if(response.role == Role.Admin || response.role == Role.Super){

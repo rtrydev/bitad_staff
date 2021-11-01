@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bitad_staff/api/retrofit_api.dart';
 import 'package:bitad_staff/api/retrofit_client.dart';
 import 'package:bitad_staff/models/user.dart';
@@ -7,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer' as developer;
 
@@ -73,13 +77,56 @@ class _WinnersFormState extends State<WinnersForm> {
                         builder: (context) {
                           return AlertDialog(
                             content: Container(
-                              height: dialogHeight,
+                              height: dialogHeight + 55,
                               width: 300,
-                              child: ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
-                                return ListTile(
-                                  title: Text((index + 1).toString() + '.  ' + result[index].username +'  |  '+result[index].email),
-                                );
-                              }),
+                              child: Column(
+                                children: [
+                                  ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
+                                    final firstName = result[index].firstName ?? '';
+                                    final lastName = result[index].lastName ?? '';
+                                    final rewardCode = result[index].rewardCode ?? '';
+                                    final email = result[index].email;
+                                    return ListTile(
+                                      title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+ rewardCode + '  |  ' + email),
+                                    );
+                                  }),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      var status = await Permission.storage.status;
+                                      if (!status.isGranted) {
+                                        // You can request multiple permissions at once.
+                                        Map<Permission, PermissionStatus> statuses = await [
+                                          Permission.storage
+                                      ].request();
+                                      }
+                                      final directory = '/storage/emulated/0/Download/Bitad';
+                                      await Directory(directory).create();
+                                      var lines = List.generate(result.length, (i) {
+                                        final firstName = result[i].firstName ?? '';
+                                        final lastName = result[i].lastName ?? '';
+                                        final rewardCode = result[i].rewardCode ?? '';
+                                        final email = result[i].email;
+                                        return (i + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+ rewardCode + '  |  ' + email;
+                                      });
+                                      final path = '${directory}/bitad-winners-'+DateTime.now().toString().split('.')[0].replaceFirst(' ', '-').replaceAll(':', '.')+'.txt';
+                                      var outputFile = await File(path).create();
+                                      for(int j = 0; j<result.length; j++) {
+                                        outputFile.writeAsStringSync('${lines[j]}\n\n', mode: FileMode.append);
+                                      }
+                                      final snackBar = SnackBar(content: Text('Zapisano w ${path}'));
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                                    },
+                                      style: ButtonStyle(
+                                      minimumSize: MaterialStateProperty.all(const Size(110, 35)),
+                                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(16.0)))),
+                                      child: const Text('Zapisz do pliku', textScaleFactor: 1.2,))
+                                ],
+                              ),
                             ),
                           );
                         },

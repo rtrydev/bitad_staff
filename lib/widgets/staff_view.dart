@@ -1,4 +1,5 @@
 
+import 'package:bitad_staff/widgets/network_image_ssl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bitad_staff/api/retrofit_api.dart';
@@ -51,7 +52,7 @@ class _StaffViewState extends State<StaffView> {
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
                                           fit: BoxFit.fill,
-                                          image: NetworkImage('${snapshot.data?[index].picture}')
+                                          image: NetworkImageSSL('${snapshot.data?[index].picture}')
                                       )
                                   ),
                                 ),
