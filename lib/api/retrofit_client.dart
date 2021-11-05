@@ -17,7 +17,7 @@ abstract class RestClient {
   @POST("/User/AuthenticateUser")
   Future<User> authenticateUser(@Body() UserLogin userLogin);
 
-  @PUT("/User/CheckAttendance")
+  @PUT("/Staff/CheckAttendance")
   Future<AttendanceResult> checkAttendance(@Query('attendanceCode') String code);
 
   @GET("/Staff/GetStaffAdmin")
@@ -26,7 +26,7 @@ abstract class RestClient {
   @GET("/User/GetUser")
   Future<User> getUser();
 
-  @GET("/User/Winners")
+  @GET("/Admin/GetWinners")
   Future<List<User>> getWinners(@Query ("numberOfWinners") int numberOfWinners);
 
   @GET("/Workshop/GetWorkshops")
@@ -35,22 +35,22 @@ abstract class RestClient {
   @GET("/Workshop/GetWorkshopParticipants")
   Future<List<Attendant>> getWorkshopParticipants(@Query("workshopCode") String workshopCode);
 
-  @POST("/Staff/SendConfirmationMails")
+  @POST("/Admin/SendConfirmationMails")
   Future sendConfirmationMails();
 
-  @POST("/Staff/ExcludeInactiveUsersFromWorkshops")
+  @POST("/Admin/ExcludeInactiveUsersFromWorkshops")
   Future excludeInactiveUsersFromWorkshops();
 
-  @POST("/Staff/BanWorkshopInactiveAccounts")
+  @POST("/Admin/BanWorkshopInactiveAccounts")
   Future banWorkshopInactiveAccounts(@Query("workshopCode") String workshopCode);
 
-  @PUT("/User/CheckWorkshopAttendance")
+  @PUT("/Staff/CheckWorkshopAttendance")
   Future<AttendanceResult> checkWorkshopAttendance(@Query("attendanceCode") String attendanceCode, @Query("workshopCode") String workshopCode);
 
-  @PUT("/Staff/BanUser")
+  @PUT("/Admin/BanUser")
   Future<User> banUser(@Query("email") String email);
 
-  @PUT("/Staff/UnbanUser")
+  @PUT("/Admin/UnbanUser")
   Future<User> unbanUser(@Query("email") String email);
 }
 

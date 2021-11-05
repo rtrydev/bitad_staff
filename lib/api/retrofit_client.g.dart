@@ -38,7 +38,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AttendanceResult>(
             Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/User/CheckAttendance',
+                .compose(_dio.options, '/Staff/CheckAttendance',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = AttendanceResult.fromJson(_result.data!);
@@ -84,7 +84,7 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(
         Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-            .compose(_dio.options, '/User/Winners',
+            .compose(_dio.options, '/Admin/GetWinners',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
@@ -134,7 +134,7 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
-            .compose(_dio.options, '/Staff/SendConfirmationMails',
+            .compose(_dio.options, '/Admin/SendConfirmationMails',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
@@ -148,7 +148,7 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
-            .compose(_dio.options, '/Staff/ExcludeInactiveUsersFromWorkshops',
+            .compose(_dio.options, '/Admin/ExcludeInactiveUsersFromWorkshops',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
@@ -162,7 +162,7 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
-            .compose(_dio.options, '/Staff/BanWorkshopInactiveAccounts',
+            .compose(_dio.options, '/Admin/BanWorkshopInactiveAccounts',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
@@ -181,7 +181,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AttendanceResult>(
             Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/User/CheckWorkshopAttendance',
+                .compose(_dio.options, '/Staff/CheckWorkshopAttendance',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = AttendanceResult.fromJson(_result.data!);
@@ -195,7 +195,7 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
         Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
-            .compose(_dio.options, '/Staff/BanUser',
+            .compose(_dio.options, '/Admin/BanUser',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = User.fromJson(_result.data!);
@@ -209,7 +209,7 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
         Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
-            .compose(_dio.options, '/Staff/UnbanUser',
+            .compose(_dio.options, '/Admin/UnbanUser',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = User.fromJson(_result.data!);
