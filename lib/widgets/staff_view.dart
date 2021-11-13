@@ -64,7 +64,7 @@ class _StaffViewState extends State<StaffView> {
                                       children: [
                                         Text('${snapshot.data?[index].name}',
                                             style: TextStyle(fontWeight: FontWeight.w700, color: Colors.grey[900])),
-                                        Text('${snapshot.data?[index].description}',
+                                        Text(snapshot.data?[index].staffRole ?? '',
                                           style: TextStyle(color: Colors.grey.shade600),
                                         ),
                                       ],

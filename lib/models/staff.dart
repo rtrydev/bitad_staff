@@ -9,8 +9,9 @@ class Staff {
   final String description;
   final String? degree;
   final String? contact;
+  final String? staffRole;
 
-  Staff({required this.name, required this.picture, required this.description, this.degree, this.contact});
+  Staff({required this.name, required this.picture, required this.description, this.degree, this.contact, this.staffRole});
 
   factory Staff.fromJson(Map<String, dynamic> json) => _$StaffFromJson(json);
   Map<String, dynamic> toJson() => _$StaffToJson(this);
