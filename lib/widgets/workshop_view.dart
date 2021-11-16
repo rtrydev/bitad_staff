@@ -109,14 +109,17 @@ class _WorkshopViewState extends State<WorkshopView> {
                                 width: 300,
                                 child: Column(
                                   children: [
-                                    ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
-                                      final firstName = result[index].firstName ?? '';
-                                      final lastName = result[index].lastName ?? '';
-                                      final email = result[index].eMail ?? '';
-                                      return ListTile(
-                                        title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+email),
-                                      );
-                                    }),
+                                    Container(
+                                      height: dialogHeight - 70,
+                                      child: ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
+                                        final firstName = result[index].firstName ?? '';
+                                        final lastName = result[index].lastName ?? '';
+                                        final email = result[index].eMail ?? '';
+                                        return ListTile(
+                                          title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+email),
+                                        );
+                                      }),
+                                    ),
                                     SizedBox(
                                       height: 20,
                                     ),

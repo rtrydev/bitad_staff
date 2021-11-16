@@ -12,6 +12,7 @@ Staff _$StaffFromJson(Map<String, dynamic> json) => Staff(
       description: json['description'] as String,
       degree: json['degree'] as String?,
       contact: json['contact'] as String?,
+      staffRole: json['staffRole'] as String?,
     );
 
 Map<String, dynamic> _$StaffToJson(Staff instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$StaffToJson(Staff instance) => <String, dynamic>{
       'description': instance.description,
       'degree': instance.degree,
       'contact': instance.contact,
+      'staffRole': instance.staffRole,
     };

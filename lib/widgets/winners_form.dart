@@ -69,27 +69,31 @@ class _WinnersFormState extends State<WinnersForm> {
                       final client = RestClient(dio);
 
                       var result = await client.getWinners(int.parse(numberOfWinners));
-                      var dialogHeight = 70.0*result.length;
-                      if(dialogHeight > 500) dialogHeight = 500;
+                      var dialogHeight = 70.0*result.length + 55;
+                      if(dialogHeight > 555) dialogHeight = 555;
+                      if(dialogHeight == 55) dialogHeight += 15;
 
                       showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
                             content: Container(
-                              height: dialogHeight + 55,
+                              height: dialogHeight,
                               width: 300,
                               child: Column(
                                 children: [
-                                  ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
-                                    final firstName = result[index].firstName ?? '';
-                                    final lastName = result[index].lastName ?? '';
-                                    final rewardCode = result[index].rewardCode ?? '';
-                                    final email = result[index].email;
-                                    return ListTile(
-                                      title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+ rewardCode + '  |  ' + email),
-                                    );
-                                  }),
+                                  Container(
+                                    height: dialogHeight - 70,
+                                    child: ListView.builder(shrinkWrap: true, itemCount: result.length ,itemBuilder: (BuildContext context,int index){
+                                      final firstName = result[index].firstName ?? '';
+                                      final lastName = result[index].lastName ?? '';
+                                      final rewardCode = result[index].rewardCode ?? '';
+                                      final email = result[index].email;
+                                      return ListTile(
+                                        title: Text((index + 1).toString() + '.  ' + firstName + ' ' + lastName +'  |  '+ rewardCode + '  |  ' + email),
+                                      );
+                                    }),
+                                  ),
                                   SizedBox(
                                     height: 20,
                                   ),
