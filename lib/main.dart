@@ -5,6 +5,7 @@ import 'package:bitad_staff/screens/splash.dart';
 import 'package:bitad_staff/screens/super.dart';
 import 'package:bitad_staff/screens/winners.dart';
 import 'package:bitad_staff/screens/workshops.dart';
+import 'package:bitad_staff/widgets/mainwinner_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
           '/winners' : (context) => Winners(),
           '/login' : (context) => Login(),
           '/workshops' : (context) => Workshops(),
-          '/super' : (context) => SuperMenu()
+          '/super' : (context) => SuperMenu(),
+          '/mainwinner' : (context) => MainWinnerView(),
         });
   }
 }

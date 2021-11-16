@@ -46,7 +46,7 @@ class _SuperMenuView extends State<SuperMenuView> {
   Widget build(BuildContext context) {
     var optionList = List.generate(6, (index) {
       switch(index){
-        case 0: return OptionInformation(optionIcon: Icons.emoji_events, optionName: "Losuj XBOX");
+        case 0: return OptionInformation(optionIcon: Icons.emoji_events, optionName: "Losuj główną nagrodę");
         case 1: return OptionInformation(optionIcon: Icons.emoji_events, optionName: "Losuj zwycięzców");
         case 2: return OptionInformation(optionIcon: Icons.mail, optionName: "Wyślij maile z potwierdzeniem obecności");
         case 3: return OptionInformation(optionIcon: Icons.delete_forever, optionName: "Usuń nieaktywnych użytkowników z warsztatów");
@@ -57,7 +57,7 @@ class _SuperMenuView extends State<SuperMenuView> {
     
     return Scaffold(
       body: ListView.builder(
-        itemCount: 5,
+        itemCount: 6,
         itemBuilder: (_, i) {
           return ListTile(
             title: Text(optionList[i]!.optionName),
@@ -65,21 +65,7 @@ class _SuperMenuView extends State<SuperMenuView> {
             onTap: () {
               switch(i){
                 case 0:
-                    final api = RetrofitApi(context);
-
-                    api.getApiClient().then((dio) async {
-                      final client = RestClient(dio);
-
-                      var result = await client.getXboxWinner();
-                      showDialog(context: context, builder: (context) {
-                        return AlertDialog(
-                          content: Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(result.firstName! + ' ' + result.lastName! +'  |  '+ result.rewardCode! + '  |  ' + result.email),
-                          ),
-                        );
-                      });
-                    });
+                  Navigator.pushNamed(context, '/mainwinner');
                   break;
                 case 1:
                   Navigator.pushNamed(context, '/winners');

@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 
 part 'retrofit_client.g.dart';
 
-@RestApi(baseUrl: "https://bitad.ath.bielsko.pl:8080/")
+@RestApi(baseUrl: "http://212.106.184.93:8080/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
@@ -54,6 +54,6 @@ abstract class RestClient {
   Future<User> unbanUser(@Query("email") String email);
 
   @GET("/Admin/GetMainWinner")
-  Future<User> getXboxWinner();
+  Future<List<User>> getMainWinner();
 }
 
