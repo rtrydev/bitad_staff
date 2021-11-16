@@ -44,13 +44,14 @@ class _SuperMenuView extends State<SuperMenuView> {
 
   @override
   Widget build(BuildContext context) {
-    var optionList = List.generate(5, (index) {
+    var optionList = List.generate(6, (index) {
       switch(index){
-        case 0: return OptionInformation(optionIcon: Icons.emoji_events, optionName: "Losuj zwycięzców");
-        case 1: return OptionInformation(optionIcon: Icons.mail, optionName: "Wyślij maile z potwierdzeniem obecności");
-        case 2: return OptionInformation(optionIcon: Icons.delete_forever, optionName: "Usuń nieaktywnych użytkowników z warsztatów");
-        case 3: return OptionInformation(optionIcon: Icons.block, optionName: "Wyklucz użytkownika z udziału w losowaniu");
-        case 4: return OptionInformation(optionIcon: Icons.check, optionName: "Przywróć użytkownika do udziału w losowaniu");
+        case 0: return OptionInformation(optionIcon: Icons.emoji_events, optionName: "Losuj XBOX");
+        case 1: return OptionInformation(optionIcon: Icons.emoji_events, optionName: "Losuj zwycięzców");
+        case 2: return OptionInformation(optionIcon: Icons.mail, optionName: "Wyślij maile z potwierdzeniem obecności");
+        case 3: return OptionInformation(optionIcon: Icons.delete_forever, optionName: "Usuń nieaktywnych użytkowników z warsztatów");
+        case 4: return OptionInformation(optionIcon: Icons.block, optionName: "Wyklucz użytkownika z udziału w losowaniu");
+        case 5: return OptionInformation(optionIcon: Icons.check, optionName: "Przywróć użytkownika do udziału w losowaniu");
       }
     });
     
@@ -64,9 +65,26 @@ class _SuperMenuView extends State<SuperMenuView> {
             onTap: () {
               switch(i){
                 case 0:
-                  Navigator.pushNamed(context, '/winners');
+                    final api = RetrofitApi(context);
+
+                    api.getApiClient().then((dio) async {
+                      final client = RestClient(dio);
+
+                      var result = await client.getXboxWinner();
+                      showDialog(context: context, builder: (context) {
+                        return AlertDialog(
+                          content: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(result.firstName! + ' ' + result.lastName! +'  |  '+ result.rewardCode! + '  |  ' + result.email),
+                          ),
+                        );
+                      });
+                    });
                   break;
                 case 1:
+                  Navigator.pushNamed(context, '/winners');
+                  break;
+                case 2:
                   showDialog(context: context, builder: (context){
                     textController.clear();
                     return AlertDialog(
@@ -111,7 +129,7 @@ class _SuperMenuView extends State<SuperMenuView> {
                     );
                   });
                   break;
-                case 2:
+                case 3:
                   showDialog(context: context, builder: (context){
                     textController.clear();
                     return AlertDialog(
@@ -157,7 +175,7 @@ class _SuperMenuView extends State<SuperMenuView> {
                     );
                   });
                   break;
-                case 3:
+                case 4:
                   showDialog(context: context, builder: (context){
                     textController.clear();
                     return AlertDialog(
@@ -209,7 +227,7 @@ class _SuperMenuView extends State<SuperMenuView> {
                     );
                   });
                   break;
-                case 4:
+                case 5:
                   showDialog(context: context, builder: (context){
                     textController.clear();
                     return AlertDialog(

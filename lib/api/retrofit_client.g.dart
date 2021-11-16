@@ -19,10 +19,11 @@ class _RestClient implements RestClient {
   Future<User> authenticateUser(userLogin) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(userLogin.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
-        Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/User/AuthenticateUser',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -34,10 +35,11 @@ class _RestClient implements RestClient {
   Future<AttendanceResult> checkAttendance(code) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'attendanceCode': code};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AttendanceResult>(
-            Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
+            Options(method: 'PUT', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/Staff/CheckAttendance',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -49,9 +51,10 @@ class _RestClient implements RestClient {
   Future<List<Staff>> getStaff() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<Staff>>(
-        Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'GET', headers: _headers, extra: _extra)
             .compose(_dio.options, '/Staff/GetStaffAdmin',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -65,9 +68,10 @@ class _RestClient implements RestClient {
   Future<User> getUser() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
-        Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'GET', headers: _headers, extra: _extra)
             .compose(_dio.options, '/User/GetUser',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -81,9 +85,10 @@ class _RestClient implements RestClient {
     final queryParameters = <String, dynamic>{
       r'numberOfWinners': numberOfWinners
     };
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<User>>(
-        Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'GET', headers: _headers, extra: _extra)
             .compose(_dio.options, '/Admin/GetWinners',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -97,10 +102,11 @@ class _RestClient implements RestClient {
   Future<List<Workshop>> getWorkshops() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<Workshop>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+            Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/Workshop/GetWorkshops',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -114,10 +120,11 @@ class _RestClient implements RestClient {
   Future<List<Attendant>> getWorkshopParticipants(workshopCode) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'workshopCode': workshopCode};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<Attendant>>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+            Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/Workshop/GetWorkshopParticipants',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -131,9 +138,10 @@ class _RestClient implements RestClient {
   Future<dynamic> sendConfirmationMails() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/Admin/SendConfirmationMails',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -145,9 +153,10 @@ class _RestClient implements RestClient {
   Future<dynamic> excludeInactiveUsersFromWorkshops() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/Admin/ExcludeInactiveUsersFromWorkshops',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -159,9 +168,10 @@ class _RestClient implements RestClient {
   Future<dynamic> banWorkshopInactiveAccounts(workshopCode) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'workshopCode': workshopCode};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/Admin/BanWorkshopInactiveAccounts',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -177,10 +187,11 @@ class _RestClient implements RestClient {
       r'attendanceCode': attendanceCode,
       r'workshopCode': workshopCode
     };
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AttendanceResult>(
-            Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
+            Options(method: 'PUT', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/Staff/CheckWorkshopAttendance',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -192,9 +203,10 @@ class _RestClient implements RestClient {
   Future<User> banUser(email) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'email': email};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
-        Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'PUT', headers: _headers, extra: _extra)
             .compose(_dio.options, '/Admin/BanUser',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
@@ -206,10 +218,26 @@ class _RestClient implements RestClient {
   Future<User> unbanUser(email) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'email': email};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
-        Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
+        Options(method: 'PUT', headers: _headers, extra: _extra)
             .compose(_dio.options, '/Admin/UnbanUser',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = User.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<User> getXboxWinner() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/Admin/GetMainWinner',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = User.fromJson(_result.data!);

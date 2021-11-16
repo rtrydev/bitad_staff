@@ -52,5 +52,8 @@ abstract class RestClient {
 
   @PUT("/Admin/UnbanUser")
   Future<User> unbanUser(@Query("email") String email);
+
+  @GET("/Admin/GetMainWinner")
+  Future<User> getXboxWinner();
 }
 
